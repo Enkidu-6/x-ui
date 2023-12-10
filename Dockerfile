@@ -10,7 +10,7 @@ RUN ./DockerInitFiles.sh "$TARGETARCH"
 
 FROM alpine
 LABEL org.opencontainers.image.authors="enkidu6"
-ENV TZ=Asia/Tehran
+ENV TZ=Etc/UTC
 WORKDIR /app
 
 RUN apk add ca-certificates tzdata
