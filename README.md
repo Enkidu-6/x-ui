@@ -40,7 +40,7 @@
 ## Install & Upgrade to Latest Version
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh)
 ```
 
 ## Install Custom Version
@@ -48,12 +48,12 @@ bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.s
 To install your desired version you can add the version to the end of install command. Example for ver `0.5.2`:
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh) 0.5.2
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh) 0.5.2
 ```
 
 ## Manual Install & Upgrade
 
-1. First download the latest compressed package from https://github.com/alireza0/x-ui/releases, generally choose Architecture `amd64`
+1. First download the latest compressed package from https://github.com/Enkidu-6/x-ui/releases, generally choose Architecture `amd64`
 2. Then upload the compressed package to the server's `/root/` directory and login to the server with user `root` 
 
 > If your server cpu architecture is not `amd64` replace another architecture
@@ -91,7 +91,7 @@ docker run -itd \
     -v $PWD/db/:/etc/x-ui/ \
     -v $PWD/cert/:/root/cert/ \
     --name x-ui --restart=unless-stopped \
-    alireza7/x-ui:latest
+    enkidu6/x-ui:latest
 ```
 
 > Build your own image
@@ -130,6 +130,7 @@ docker build -t x-ui .
 ## Recommended OS
 
 - CentOS 8+
+- Almalinux 8+ **Warning! If you're using Podman, it will be removed along with all your containers.**
 - Ubuntu 20+
 - Debian 10+
 - Fedora 36+
