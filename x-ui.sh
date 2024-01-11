@@ -42,6 +42,12 @@ if [[ "${release}" == "centos" ]]; then
     if [[ ${os_version} -lt 8 ]]; then
         echo -e "${red} Please use CentOS 8 or higher ${plain}\n" && exit 1
     fi
+
+elif [[ "${release}" ==  "almalinux" ]]; then
+    if [[ ${os_version} -lt 8 ]]; then
+        echo -e "${red}please use almalinux 8 or higher version! ${plain}\n" && exit 1
+    fi
+    
 elif [[ "${release}" ==  "ubuntu" ]]; then
     if [[ ${os_version} -lt 20 ]]; then
         echo -e "${red}please use Ubuntu 20 or higher version! ${plain}\n" && exit 1
@@ -89,7 +95,7 @@ before_show_menu() {
 }
 
 install() {
-    bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/main/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/main/install.sh)
     if [[ $? == 0 ]]; then
         if [[ $# == 0 ]]; then
             start
@@ -108,7 +114,7 @@ update() {
         fi
         return 0
     fi
-    bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/main/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/main/install.sh)
     if [[ $? == 0 ]]; then
         LOGI "Update is complete, Panel has automatically restarted "
         exit 0
@@ -124,7 +130,7 @@ custom_version() {
     exit 1
     fi
 
-    download_link="https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh"
+    download_link="https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh"
 
     # Use the entered panel version in the download link
     install_command="bash <(curl -Ls $download_link) $panel_version"
@@ -309,7 +315,7 @@ install_bbr() {
 }
 
 update_shell() {
-    wget -O /usr/bin/x-ui -N --no-check-certificate https://github.com/alireza0/x-ui/raw/main/x-ui.sh
+    wget -O /usr/bin/x-ui -N --no-check-certificate https://github.com/Enkidu-6/x-ui/raw/main/x-ui.sh
     if [[ $? != 0 ]]; then
         echo ""
         LOGE "Failed to download script，Please check whether the machine can connect Github"
@@ -463,7 +469,7 @@ ssl_cert_issue() {
     case "${release}" in
         ubuntu|debian)
             apt update && apt install socat -y ;;
-        centos)
+        centos|almalinux)
             yum -y update && yum -y install socat ;;
         fedora)
             dnf -y update && dnf -y install socat ;;
