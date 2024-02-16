@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Remove Docker Tag
-      uses: Enkidu-6/remove-dockertag-action@v1
+      uses: rafalkk/remove-dockertag-action@v1
       with:
         tag_name: 1.7.6
         github_token: ${{ secrets.GITHUB_TOKEN }}
