@@ -38,7 +38,7 @@ src="https://github.com/alireza0/x-ui/assets/115543613/dd4f10dd-8bb0-40cf-846f-1
 ## Install & Upgrade to Latest Version
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh)
 ```
 
 ## Install Custom Version
@@ -46,7 +46,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.s
 **Step 1:** To install your desired version, add the version to the end of the installation command. e.g., ver `1.6.4`:
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh) 1.6.4
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh) 1.6.4
 ```
 
 ## Manual Install & Upgrade
@@ -56,7 +56,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.s
   
 ### Usage
 
-**Step 1:** First download the latest compressed package from https://github.com/alireza0/x-ui/releases, generally choose Architecture `amd64`
+**Step 1:** First download the latest compressed package from https://github.com/Enkidu-6/x-ui/releases, generally choose Architecture `amd64`
 
 **Step 2:** Then upload the compressed package to the server's `/root/` directory and login to the server with user `root`
 
@@ -102,7 +102,7 @@ docker run -itd \
     -v $PWD/db/:/etc/x-ui/ \
     -v $PWD/cert/:/root/cert/ \
     --name x-ui --restart=unless-stopped \
-    alireza7/x-ui:latest
+    enkidu6/x-ui:latest
 ```
 
 > Build your own image
@@ -142,6 +142,7 @@ docker build -t x-ui .
 ## Recommended OS
 
 - CentOS 8+
+- Almalinux 8+
 - Ubuntu 20+
 - Debian 10+
 - Fedora 36+
