@@ -1,3 +1,14 @@
-uses: camargo/delete-untagged-action@v1
- with:
-  github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
+name: Delete untagged
+
+on:
+    workflow_dispatch:
+
+jobs:
+  delete-untagged:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Delete untagged    
+      uses: camargo/delete-untagged-action@v1
+      with:
+        github-token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
