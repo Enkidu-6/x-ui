@@ -36,16 +36,10 @@ echo "arch: $(arch)"
 os_version=""
 os_version=$(grep -i version_id /etc/os-release | cut -d \" -f2 | cut -d . -f1)
 
-if [[ "${release}" == "almalinux" ]]; then
-    if [[ ${os_version} -lt 8 ]]; then
-        echo -e "${red} Please use almalinux 8 or higher ${plain}\n" && exit 1
-    fi
-    
-elif [[ "${release}" == "centos" ]]; then
+if [[ "${release}" == "centos" ]]; then
     if [[ ${os_version} -lt 8 ]]; then
         echo -e "${red} Please use CentOS 8 or higher ${plain}\n" && exit 1
     fi
-    
 elif [[ "${release}" ==  "ubuntu" ]]; then
     if [[ ${os_version} -lt 20 ]]; then
         echo -e "${red}please use Ubuntu 20 or higher version! ${plain}\n" && exit 1
@@ -65,14 +59,8 @@ else
 fi
 
 
-install_base() {
-    if [[ "${release}" == "almalinux" ]] ; then
-        dnf install yum-utils -y
-        dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-        dnf remove podman buildah -y
-        dnf install wget curl tar -y 
-        
-    elif [[ "${release}" == "centos" ]] || [[ "${release}" == "fedora" ]] ; then
+install_dependencies() {
+    if [[ "${release}" == "centos" ]] || [[ "${release}" == "fedora" ]] ; then
         yum install wget curl tar -y
     else
         apt install wget curl tar -y
@@ -115,23 +103,37 @@ config_after_install() {
 }
 
 install_x-ui() {
+    # checks if the installation backup dir exist. if existed then ask user if they want to restore it else continue installation.
+    if [[ -e /usr/local/x-ui-backup/ ]]; then
+        read -p "Failed installation detected. Do you want to restore previously installed version? [y/n]? ": restore_confirm
+        if [[ "${restore_confirm}" == "y" || "${restore_confirm}" == "Y" ]]; then
+            systemctl stop x-ui
+            mv /usr/local/x-ui-backup/x-ui.db /etc/x-ui/ -f
+            mv /usr/local/x-ui-backup/ /usr/local/x-ui/ -f
+            systemctl start x-ui
+            echo -e "${green}previous installed x-ui restored successfully${plain}, it is up and running now..."
+            exit 0
+        else
+            echo -e "Continuing installing x-ui ..."
+    fi
+
     cd /usr/local/
 
     if [ $# == 0 ]; then
-        last_version=$(curl -Ls "https://api.github.com/repos/Enkidu-6/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        last_version=$(curl -Ls "https://api.github.com/repos/alireza0/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [[ ! -n "$last_version" ]]; then
             echo -e "${red}Failed to fetch x-ui version, it maybe due to Github API restrictions, please try it later${plain}"
             exit 1
         fi
         echo -e "Got x-ui latest version: ${last_version}, beginning the installation..."
-        wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(arch).tar.gz https://github.com/Enkidu-6/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz
+        wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(arch).tar.gz https://github.com/alireza0/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Downloading x-ui failed, please be sure that your server can access Github ${plain}"
             exit 1
         fi
     else
         last_version=$1
-        url="https://github.com/Enkidu-6/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz"
+        url="https://github.com/alireza0/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz"
         echo -e "Beginning to install x-ui v$1"
         wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(arch).tar.gz ${url}
         if [[ $? -ne 0 ]]; then
@@ -142,7 +144,8 @@ install_x-ui() {
 
     if [[ -e /usr/local/x-ui/ ]]; then
         systemctl stop x-ui
-        rm /usr/local/x-ui/ -rf
+        mv /usr/local/x-ui/ /usr/local/x-ui-backup/ -f
+        cp /etc/x-ui/x-ui.db /usr/local/x-ui-backup/ -f
     fi
 
     tar zxvf x-ui-linux-$(arch).tar.gz
@@ -150,10 +153,11 @@ install_x-ui() {
     cd x-ui
     chmod +x x-ui bin/xray-linux-$(arch)
     cp -f x-ui.service /etc/systemd/system/
-    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/Enkidu-6/x-ui/main/x-ui.sh
+    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/alireza0/x-ui/main/x-ui.sh
     chmod +x /usr/local/x-ui/x-ui.sh
     chmod +x /usr/bin/x-ui
     config_after_install
+    rm /usr/local/x-ui-backup/ -rf
     #echo -e "If it is a new installation, the default web port is ${green}54321${plain}, The username and password are ${green}admin${plain} by default"
     #echo -e "Please make sure that this port is not occupied by other procedures,${yellow} And make sure that port 54321 has been released${plain}"
     #    echo -e "If you want to modify the 54321 to other ports and enter the x-ui command to modify it, you must also ensure that the port you modify is also released"
@@ -184,5 +188,5 @@ install_x-ui() {
 }
 
 echo -e "${green}Running...${plain}"
-install_base
+install_dependencies
 install_x-ui $1
