@@ -45,7 +45,7 @@ elif [[ "${release}" == "centos" ]]; then
     if [[ ${os_version} -lt 8 ]]; then
         echo -e "${red} Please use CentOS 8 or higher ${plain}\n" && exit 1
     fi
-elif [[ "${release}" ==  "ubuntu" ]]; then
+elif [[ "${release}" == "ubuntu" ]]; then
     if [[ ${os_version} -lt 20 ]]; then
         echo -e "${red}please use Ubuntu 20 or higher version! ${plain}\n" && exit 1
     fi
@@ -182,7 +182,7 @@ install_x-ui() {
     echo -e ""
     echo "X-UI Control Menu Usage"
     echo "------------------------------------------"
-    echo "SUBCOMMANDS:" 
+    echo "SUBCOMMANDS:"
     echo "x-ui              - Admin Management Script"
     echo "x-ui start        - Start"
     echo "x-ui stop         - Stop"
