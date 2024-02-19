@@ -188,6 +188,7 @@ docker build -t x-ui .
 ## Recommended OS
 
 - CentOS 8+
+- Almalinux 8+
 - Ubuntu 20+
 - Debian 10+
 - Fedora 36+
