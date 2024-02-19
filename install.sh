@@ -126,6 +126,7 @@ install_x-ui() {
             exit 0
         else
             echo -e "Continuing installing x-ui ..."
+        fi
     fi
 
     cd /usr/local/
