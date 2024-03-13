@@ -37,15 +37,15 @@
 ## Install & Upgrade to Latest Version
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh)
 ```
 
 ## Install Custom Version
 
-**Step 1:** To install your desired version, add the version to the end of the installation command. e.g., ver `1.8.0`:
+**Step 1:** To install your desired version, add the version to the end of the installation command. e.g., ver `1.7.1`:
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh) 1.8.0
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh) 1.7.1
 ```
 
 ## Manual Install & Upgrade
@@ -67,7 +67,7 @@ case "${ARCH}" in
   *) XUI_ARCH="amd64" ;;
 esac
 
-wget https://github.com/alireza0/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz
+wget https://github.com/Enkidu-6/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz
 ```
 
 2. Once the compressed package is downloaded, execute the following commands to install or upgrade x-ui:
@@ -111,7 +111,7 @@ curl -fsSL https://get.docker.com | sh
 **Step 2:** Clone the Project Repository:
 
    ```sh
-   git clone https://github.com/alireza0/x-ui.git
+   git clone https://github.com/Enkidu-6/x-ui.git
    cd x-ui
    ```
 
@@ -131,7 +131,7 @@ docker run -itd \
     -v $PWD/db/:/etc/x-ui/ \
     -v $PWD/cert/:/root/cert/ \
     --name x-ui --restart=unless-stopped \
-    alireza7/x-ui:latest
+    enkidu6/x-ui:latest
 ```
 
 update to latest version
@@ -192,6 +192,7 @@ docker build -t x-ui .
 - Ubuntu 20+
 - Debian 10+
 - Fedora 36+
+- Almalinux 8+
 
 ## Preview
 
