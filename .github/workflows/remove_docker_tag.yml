@@ -1,0 +1,21 @@
+name: Remove Docker Tag
+
+on:
+    workflow_dispatch:
+
+jobs:
+  remove-docker-tag:
+    runs-on: ubuntu-latest
+
+    # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
+    # (required)
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: Remove Docker Tag
+      uses: Enkidu-6/remove-dockertag-action@v1
+      with:
+        tag_name: 1.7.6
+        github_token: ${{ secrets.DELETE_PACKAGES_TOKEN }}
