@@ -341,10 +341,10 @@
             ],
             countryOptions: [
                 { label: 'Private IP/Domain', value: 'private' },
-                { label: '🇮🇷 Iran', value: 'ir' },
-                { label: '🇨🇳 China', value: 'cn' },
-                { label: '🇷🇺 Russia', value: 'ru' },
-                { label: '🇻🇳 Vietnam', value: 'vn' },
+                { label: '???? Iran', value: 'ir' },
+                { label: '???? China', value: 'cn' },
+                { label: '???? Russia', value: 'ru' },
+                { label: '???? Vietnam', value: 'vn' },
             ],
             get remarkModel() {
                 rm = this.allSetting.remarkModel;
@@ -525,12 +525,9 @@
                     if (window.location.protocol !== "https:") alerts.push('{{ i18n "secAlertSSL" }}');
                     if (this.allSetting.webPort == 54321) alerts.push('{{ i18n "secAlertPanelPort" }}');
                     panelPath = window.location.pathname.split('/').length<4
-                    if (panelPath && this.allSetting.webBasePath == '/') alerts.push('{{ i18n "secAlertPanelURI" }}');
                     if (this.allSetting.subEnable) {
                         subPath = this.allSetting.subURI.length >0 ? new URL(this.allSetting.subURI).pathname : this.allSetting.subPath;
-                        if (subPath == '/sub/') alerts.push('{{ i18n "secAlertSubURI" }}');
                         subJsonPath = this.allSetting.subJsonURI.length >0 ? new URL(this.allSetting.subJsonURI).pathname : this.allSetting.subJsonPath;
-                        if (subJsonPath == '/json/') alerts.push('{{ i18n "secAlertSubJsonURI" }}');
                     }
                     return alerts
                 }

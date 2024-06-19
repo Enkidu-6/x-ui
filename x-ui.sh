@@ -56,6 +56,11 @@ elif [[ "${release}" == "debian" ]]; then
     if [[ ${os_version} -lt 10 ]]; then
         echo -e "${red} Please use Debian 10 or higher ${plain}\n" && exit 1
     fi
+
+elif [[ "${release}" ==  "almalinux" ]]; then
+    if [[ ${os_version} -lt 8 ]]; then
+        echo -e "${red}please use almalinux 8 or higher version! ${plain}\n" && exit 1
+    fi
 fi
 
 confirm() {
@@ -89,7 +94,7 @@ before_show_menu() {
 }
 
 install() {
-    bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/main/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/main/install.sh)
     if [[ $? == 0 ]]; then
         if [[ $# == 0 ]]; then
             start
@@ -108,7 +113,7 @@ update() {
         fi
         return 0
     fi
-    bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/main/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/main/install.sh)
     if [[ $? == 0 ]]; then
         LOGI "Update is complete, Panel has automatically restarted "
         exit 0
@@ -124,7 +129,7 @@ custom_version() {
     exit 1
     fi
 
-    download_link="https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh"
+    download_link="https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh"
 
     # Use the entered panel version in the download link
     install_command="bash <(curl -Ls $download_link) $panel_version"
@@ -157,7 +162,7 @@ uninstall() {
     echo -e "\nUninstalled Successfully."
     echo ""
     echo -e "If you need to install this panel again, you can use below command:"
-    echo -e "${green}bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)${plain}"
+    echo -e "${green}bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh)${plain}"
     echo ""
     # Trap the SIGTERM signal
     trap delete_script SIGTERM
@@ -173,12 +178,12 @@ reset_user() {
         return 0
     fi
     /usr/local/x-ui/x-ui setting -username admin -password admin
-    echo -e "Username and password have been reset to ${green}admin${plain}ï¼ŒPlease restart the panel now."
+    echo -e "Username and password have been reset to ${green}admin${plain},Please restart the panel now."
     confirm_restart
 }
 
 reset_config() {
-    confirm "Are you sure you want to reset all panel settingsï¼ŒAccount data will not be lostï¼ŒUsername and password will not change" "n"
+    confirm "Are you sure you want to reset all panel settings,Account data will not be lost,Username and password will not change" "n"
     if [[ $? != 0 ]]; then
         if [[ $# == 0 ]]; then
             show_menu
@@ -186,7 +191,7 @@ reset_config() {
         return 0
     fi
     /usr/local/x-ui/x-ui setting -reset
-    echo -e "All panel settings have been reset to defaultï¼ŒPlease restart the panel nowï¼Œand use the default ${green}54321${plain} Port to Access the web Panel"
+    echo -e "All panel settings have been reset to default,Please restart the panel now,and use the default ${green}54321${plain} Port to Access the web Panel"
     confirm_restart
 }
 
@@ -206,7 +211,7 @@ set_port() {
         before_show_menu
     else
         /usr/local/x-ui/x-ui setting -port ${port}
-        echo -e "The port is setï¼ŒPlease restart the panel nowï¼Œand use the new port ${green}${port}${plain} to access web panel"
+        echo -e "The port is set,Please restart the panel now,and use the new port ${green}${port}${plain} to access web panel"
         confirm_restart
     fi
 }
@@ -215,7 +220,7 @@ start() {
     check_status
     if [[ $? == 0 ]]; then
         echo ""
-        LOGI "Panel is runningï¼ŒNo need to start againï¼ŒIf you need to restart, please select restart"
+        LOGI "Panel is running,No need to start again,If you need to restart, please select restart"
     else
         systemctl start x-ui
         sleep 2
@@ -223,7 +228,7 @@ start() {
         if [[ $? == 0 ]]; then
             LOGI "x-ui Started Successfully"
         else
-            LOGE "panel Failed to startï¼ŒProbably because it takes longer than two seconds to startï¼ŒPlease check the log information later"
+            LOGE "panel Failed to start,Probably because it takes longer than two seconds to start,Please check the log information later"
         fi
     fi
 
@@ -236,7 +241,7 @@ stop() {
     check_status
     if [[ $? == 1 ]]; then
         echo ""
-        LOGI "Panel stoppedï¼ŒNo need to stop again!"
+        LOGI "Panel stopped,No need to stop again!"
     else
         systemctl stop x-ui
         sleep 2
@@ -244,7 +249,7 @@ stop() {
         if [[ $? == 1 ]]; then
             LOGI "x-ui and xray stopped successfully"
         else
-            LOGE "Panel stop failedï¼ŒProbably because the stop time exceeds two secondsï¼ŒPlease check the log information later"
+            LOGE "Panel stop failed,Probably because the stop time exceeds two seconds,Please check the log information later"
         fi
     fi
 
@@ -260,7 +265,7 @@ restart() {
     if [[ $? == 0 ]]; then
         LOGI "x-ui and xray Restarted successfully"
     else
-        LOGE "Panel restart failedï¼ŒProbably because it takes longer than two seconds to startï¼ŒPlease check the log information later"
+        LOGE "Panel restart failed,Probably because it takes longer than two seconds to start,Please check the log information later"
     fi
     if [[ $# == 0 ]]; then
         before_show_menu
@@ -308,14 +313,14 @@ show_log() {
 }
 
 update_shell() {
-    wget -O /usr/bin/x-ui -N --no-check-certificate https://github.com/alireza0/x-ui/raw/main/x-ui.sh
+    wget -O /usr/bin/x-ui -N --no-check-certificate https://github.com/Enkidu-6/x-ui/raw/main/x-ui.sh
     if [[ $? != 0 ]]; then
         echo ""
-        LOGE "Failed to download scriptï¼ŒPlease check whether the machine can connect Github"
+        LOGE "Failed to download script,Please check whether the machine can connect Github"
         before_show_menu
     else
         chmod +x /usr/bin/x-ui
-        LOGI "Upgrade script succeededï¼ŒPlease rerun the script" && exit 0
+        LOGI "Upgrade script succeeded,Please rerun the script" && exit 0
     fi
 }
 
@@ -345,7 +350,7 @@ check_uninstall() {
     check_status
     if [[ $? != 2 ]]; then
         echo ""
-        LOGE "Panel installedï¼ŒPlease do not reinstall"
+        LOGE "Panel installed,Please do not reinstall"
         if [[ $# == 0 ]]; then
             before_show_menu
         fi
@@ -905,32 +910,32 @@ show_usage() {
 show_menu() {
     echo -e "
   ${green}X-UI Admin Management Script ${plain}
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}0.${plain} Exit 
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}1.${plain} Install
   ${green}2.${plain} Update
   ${green}3.${plain} Custom Version
   ${green}4.${plain} Uninstall
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}5.${plain} Reset Username and Password
   ${green}6.${plain} Reset Panel Settings
   ${green}7.${plain} Set Panel Port
   ${green}8.${plain} View Panel Settings
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}9.${plain} Start
   ${green}10.${plain} Stop
   ${green}11.${plain} Restart
   ${green}12.${plain} Check State
   ${green}13.${plain} Check Logs
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}14.${plain} Enable Autostart
   ${green}15.${plain} Disable Autostart
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}16.${plain} SSL Certificate Management
   ${green}17.${plain} Cloudflare SSL Certificate
   ${green}18.${plain} Firewall Management
-â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+————————————————
   ${green}19.${plain} Enable or Disable BBR
   ${green}20.${plain} Update Geo Files
   ${green}21.${plain} Speedtest by Ookla
