@@ -1,5 +1,5 @@
 # X-UI
-**An Advanced Web Panel â€¢ Built on Xray Core**
+**An Advanced Web Panel • Built on Xray Core**
 
 ![](https://img.shields.io/github/v/release/alireza0/x-ui.svg)
 ![](https://img.shields.io/docker/pulls/alireza7/x-ui.svg)
@@ -37,7 +37,7 @@
 ## Install & Upgrade to Latest Version
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh)
 ```
 
 ## Install Custom Version
@@ -45,7 +45,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.s
 **Step 1:** To install your desired version, add the version to the end of the installation command. e.g., ver `1.8.0`:
 
 ```sh
-bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh) 1.8.0
+bash <(curl -Ls https://raw.githubusercontent.com/Enkidu-6/x-ui/master/install.sh) 1.8.0
 ```
 
 ## Manual Install & Upgrade
@@ -67,7 +67,7 @@ case "${ARCH}" in
   *) XUI_ARCH="amd64" ;;
 esac
 
-wget https://github.com/alireza0/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz
+wget https://github.com/Enkidu-6/x-ui/releases/latest/download/x-ui-linux-${XUI_ARCH}.tar.gz
 ```
 
 2. Once the compressed package is downloaded, execute the following commands to install or upgrade x-ui:
@@ -111,7 +111,7 @@ curl -fsSL https://get.docker.com | sh
 **Step 2:** Clone the Project Repository:
 
    ```sh
-   git clone https://github.com/alireza0/x-ui.git
+   git clone https://github.com/Enkidu-6/x-ui.git
    cd x-ui
    ```
 
@@ -131,7 +131,7 @@ docker run -itd \
     -v $PWD/db/:/etc/x-ui/ \
     -v $PWD/cert/:/root/cert/ \
     --name x-ui --restart=unless-stopped \
-    alireza7/x-ui:latest
+    enkidu6/x-ui:latest
 ```
 
 update to latest version
@@ -176,7 +176,7 @@ docker build -t x-ui .
 - Support auto generate Cloudflare WARP using Wireguard outbound
 - An interactive JSON interface for Xray template configuration
 - An advanced interface for inbound and outbound configuration
-- Clientsâ€™ traffic cap and expiration date based on first use
+- Clients’ traffic cap and expiration date based on first use
 - Displays online clients, traffic statistics, and system status monitoring
 - Deep database search
 - Displays depleted clients with expired dates or exceeded traffic cap
@@ -196,7 +196,7 @@ docker build -t x-ui .
 - Parch Linux
 - Manjaro
 - Armbian
-- AlmaLinux 9+
+- AlmaLinux 8+
 - Rocky Linux 9+
 - Oracle Linux 8+
 - OpenSUSE Tubleweed
