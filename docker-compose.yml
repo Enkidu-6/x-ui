@@ -1,9 +1,7 @@
----
-version: "3"
 
 services:
   xui:
-    image: alireza7/x-ui
+    image: enkidu6/x-ui
     container_name: x-ui
     hostname: yourhostname
     volumes:

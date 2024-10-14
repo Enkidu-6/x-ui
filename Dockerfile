@@ -9,8 +9,8 @@ RUN go build -o build/x-ui main.go
 RUN ./DockerInitFiles.sh "$TARGETARCH"
 
 FROM alpine
-LABEL org.opencontainers.image.authors="alireza7@gmail.com"
-ENV TZ=Asia/Tehran
+LABEL org.opencontainers.image.authors="enkidu6"
+ENV TZ=etc/UTC
 WORKDIR /app
 
 RUN apk add ca-certificates tzdata
