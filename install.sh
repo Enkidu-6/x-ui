@@ -141,7 +141,7 @@ config_after_install() {
     local existing_password=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'password: .+' | awk '{print $2}')
     local existing_webBasePath=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'webBasePath: .+' | awk '{print $2}')
 
-    if [[ ${#existing_webBasePath} -lt 0 ]]; then
+    if [[ ${#existing_webBasePath} -lt 4 ]]; then
         if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
             local config_webBasePath=$(gen_random_string 15)
             local config_username=$(gen_random_string 10)
