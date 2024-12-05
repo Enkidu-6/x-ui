@@ -16,24 +16,13 @@ type LogWriter struct {
 }
 
 func (lw *LogWriter) Write(m []byte) (n int, err error) {
-	crashRegex := regexp.MustCompile(`(?i)(panic|exception|stack trace|fatal error)`)
+	regex := regexp.MustCompile(`^(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[([^\]]+)\] (.+)$`)
 
 	// Convert the data to a string
 	message := strings.TrimSpace(string(m))
 
-	// Check if the message contains a crash
-	if crashRegex.MatchString(message) {
-		logger.Debug("Core crash detected:\n", message)
-		lw.lastLine = message
-		err1 := writeCrachReport(m)
-		if err1 != nil {
-			logger.Error("Unable to write crash report:", err1)
-		}
-		return len(m), nil
-	}
-
-	regex := regexp.MustCompile(`^(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[([^\]]+)\] (.+)$`)
 	messages := strings.Split(message, "\n")
+	lw.lastLine = messages[len(messages)-1]
 
 	for _, msg := range messages {
 		matches := regex.FindStringSubmatch(msg)
@@ -55,10 +44,9 @@ func (lw *LogWriter) Write(m []byte) (n int, err error) {
 			default:
 				logger.Debug("XRAY: " + msg)
 			}
-			lw.lastLine = ""
 		} else if msg != "" {
 			logger.Debug("XRAY: " + msg)
-			lw.lastLine = msg
+			return len(m), nil
 		}
 	}
 
