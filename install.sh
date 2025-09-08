@@ -1,7 +1,7 @@
 #!/bin/bash
 
 red='\033[0;31m'
-green='\033[0;32m'
+green='\033[1;32m'
 yellow='\033[0;33m'
 plain='\033[0m'
 
@@ -72,9 +72,9 @@ config_after_install() {
     local existing_password=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'password: .+' | awk '{print $2}')
     local existing_webBasePath=$(/usr/local/x-ui/x-ui setting -show true | grep -Eo 'webBasePath: .+' | awk '{print $2}')
 
-    if [[ ${#existing_webBasePath} -lt 4 ]]; then
+  # if [[ ${#existing_webBasePath} -lt 4 ]]; then
         if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
-            local config_webBasePath=$(gen_random_string 15)
+          # local config_webBasePath=$(gen_random_string 15)
             local config_username=$(gen_random_string 10)
             local config_password=$(gen_random_string 10)
 
@@ -93,32 +93,32 @@ config_after_install() {
             echo -e "${green}Username: ${config_username}${plain}"
             echo -e "${green}Password: ${config_password}${plain}"
             echo -e "${green}Port: ${config_port}${plain}"
-            echo -e "${green}WebBasePath: ${config_webBasePath}${plain}"
+          # echo -e "${green}WebBasePath: ${config_webBasePath}${plain}"
             echo -e "###############################################"
             echo -e "${yellow}If you forgot your login info, you can type 'x-ui settings' to check${plain}"
-        else
-            local config_webBasePath=$(gen_random_string 15)
-            echo -e "${yellow}WebBasePath is missing or too short. Generating a new one...${plain}"
-            /usr/local/x-ui/x-ui setting -webBasePath "${config_webBasePath}"
-            echo -e "${green}New WebBasePath: ${config_webBasePath}${plain}"
-        fi
-    else
-        if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
-            local config_username=$(gen_random_string 10)
-            local config_password=$(gen_random_string 10)
+      # else
+          # local config_webBasePath=$(gen_random_string 15)
+          # echo -e "${yellow}WebBasePath is missing or too short. Generating a new one...${plain}"
+          # /usr/local/x-ui/x-ui setting -webBasePath "${config_webBasePath}"
+          # echo -e "${green}New WebBasePath: ${config_webBasePath}${plain}"
+      # fi
+  # else
+      # if [[ "$existing_username" == "admin" && "$existing_password" == "admin" ]]; then
+          # local config_username=$(gen_random_string 10)
+          # local config_password=$(gen_random_string 10)
 
-            echo -e "${yellow}Default credentials detected. Security update required...${plain}"
-            /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}"
-            echo -e "Generated new random login credentials:"
-            echo -e "###############################################"
-            echo -e "${green}Username: ${config_username}${plain}"
-            echo -e "${green}Password: ${config_password}${plain}"
-            echo -e "###############################################"
-            echo -e "${yellow}If you forgot your login info, you can type 'x-ui settings' to check${plain}"
+          # echo -e "${yellow}Default credentials detected. Security update required...${plain}"
+          # /usr/local/x-ui/x-ui setting -username "${config_username}" -password "${config_password}"
+          # echo -e "Generated new random login credentials:"
+          # echo -e "###############################################"
+          # echo -e "${green}Username: ${config_username}${plain}"
+          # echo -e "${green}Password: ${config_password}${plain}"
+          # echo -e "###############################################"
+          # echo -e "${yellow}If you forgot your login info, you can type 'x-ui settings' to check${plain}"
         else
             echo -e "${green}Username, Password, and WebBasePath are properly set. Exiting...${plain}"
         fi
-    fi
+  # fi
 
     /usr/local/x-ui/x-ui migrate
 }
@@ -142,20 +142,20 @@ install_x-ui() {
     cd /usr/local/
 
     if [ $# == 0 ]; then
-        last_version=$(curl -Ls "https://api.github.com/repos/alireza0/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        last_version=$(curl -Ls "https://api.github.com/repos/Enkidu-6/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
         if [[ ! -n "$last_version" ]]; then
             echo -e "${red}Failed to fetch x-ui version, it maybe due to Github API restrictions, please try it later${plain}"
             exit 1
         fi
         echo -e "Got x-ui latest version: ${last_version}, beginning the installation..."
-        wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(arch).tar.gz https://github.com/alireza0/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz
+        wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(arch).tar.gz https://github.com/Enkidu-6/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz
         if [[ $? -ne 0 ]]; then
             echo -e "${red}Downloading x-ui failed, please be sure that your server can access Github ${plain}"
             exit 1
         fi
     else
         last_version=$1
-        url="https://github.com/alireza0/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz"
+        url="https://github.com/Enkidu-6/x-ui/releases/download/${last_version}/x-ui-linux-$(arch).tar.gz"
         echo -e "Beginning to install x-ui v$1"
         wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(arch).tar.gz ${url}
         if [[ $? -ne 0 ]]; then
@@ -182,7 +182,7 @@ install_x-ui() {
     fi
     chmod +x x-ui bin/xray-linux-$(arch)
     cp -f x-ui.service /etc/systemd/system/
-    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/alireza0/x-ui/main/x-ui.sh
+    wget --no-check-certificate -O /usr/bin/x-ui https://raw.githubusercontent.com/Enkidu-6/x-ui/main/x-ui.sh
     chmod +x /usr/local/x-ui/x-ui.sh
     chmod +x /usr/bin/x-ui
     config_after_install
