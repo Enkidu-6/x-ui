@@ -3,8 +3,8 @@ package model
 import (
 	"fmt"
 
-	"x-ui/util/json_util"
-	"x-ui/xray"
+	"github.com/alireza0/x-ui/util/json_util"
+	"github.com/alireza0/x-ui/xray"
 )
 
 type Protocol string
@@ -78,4 +78,11 @@ type Client struct {
 	TgID       string `json:"tgId" form:"tgId"`
 	SubID      string `json:"subId" form:"subId"`
 	Reset      int    `json:"reset" form:"reset"`
+}
+
+type VLESSSettings struct {
+	Clients    []Client `json:"clients"`
+	Decryption string   `json:"decryption"`
+	Encryption string   `json:"encryption"`
+	Fallbacks  []any    `json:"fallbacks"`
 }

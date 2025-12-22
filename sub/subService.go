@@ -7,13 +7,13 @@ import (
 	"strings"
 	"time"
 
-	"x-ui/database"
-	"x-ui/database/model"
-	"x-ui/logger"
-	"x-ui/util/common"
-	"x-ui/util/random"
-	"x-ui/web/service"
-	"x-ui/xray"
+	"github.com/alireza0/x-ui/database"
+	"github.com/alireza0/x-ui/database/model"
+	"github.com/alireza0/x-ui/logger"
+	"github.com/alireza0/x-ui/util/common"
+	"github.com/alireza0/x-ui/util/random"
+	"github.com/alireza0/x-ui/web/service"
+	"github.com/alireza0/x-ui/xray"
 
 	"github.com/goccy/go-json"
 )
@@ -305,6 +305,9 @@ func (s *SubService) genVlessLink(inbound *model.Inbound, email string) string {
 	if inbound.Protocol != model.VLESS {
 		return ""
 	}
+	var vlessSettings model.VLESSSettings
+	_ = json.Unmarshal([]byte(inbound.Settings), &vlessSettings)
+
 	var stream map[string]interface{}
 	json.Unmarshal([]byte(inbound.StreamSettings), &stream)
 	clients, _ := s.inboundService.GetClients(inbound)
@@ -319,6 +322,9 @@ func (s *SubService) genVlessLink(inbound *model.Inbound, email string) string {
 	port := inbound.Port
 	streamNetwork := stream["network"].(string)
 	params := make(map[string]string)
+	if vlessSettings.Encryption != "" {
+		params["encryption"] = vlessSettings.Encryption
+	}
 	params["type"] = streamNetwork
 
 	switch streamNetwork {
