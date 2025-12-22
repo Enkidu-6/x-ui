@@ -8,12 +8,12 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/alireza0/x-ui/config"
-	"github.com/alireza0/x-ui/logger"
-	"github.com/alireza0/x-ui/util/common"
-	"github.com/alireza0/x-ui/web/middleware"
-	"github.com/alireza0/x-ui/web/network"
-	"github.com/alireza0/x-ui/web/service"
+	"github.com/Enkidu-6/x-ui/config"
+	"github.com/Enkidu-6/x-ui/logger"
+	"github.com/Enkidu-6/x-ui/util/common"
+	"github.com/Enkidu-6/x-ui/web/middleware"
+	"github.com/Enkidu-6/x-ui/web/network"
+	"github.com/Enkidu-6/x-ui/web/service"
 
 	"github.com/gin-gonic/gin"
 )

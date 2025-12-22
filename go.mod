@@ -1,4 +1,4 @@
-module github.com/alireza0/x-ui
+module github.com/Enkidu-6/x-ui
 
 go 1.25.1
 

@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/alireza0/x-ui/web/service"
+	"github.com/Enkidu-6/x-ui/web/service"
 
 	"github.com/gin-gonic/gin"
 )

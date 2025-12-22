@@ -3,7 +3,7 @@
 
 ![](https://img.shields.io/github/v/release/alireza0/x-ui.svg)
 ![](https://img.shields.io/docker/pulls/alireza7/x-ui.svg)
-[![Go Report Card](https://goreportcard.com/badge/github.com/alireza0/x-ui)](https://goreportcard.com/report/github.com/alireza0/x-ui)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Enkidu-6/x-ui)](https://goreportcard.com/report/github.com/Enkidu-6/x-ui)
 [![Downloads](https://img.shields.io/github/downloads/alireza0/x-ui/total.svg)](https://img.shields.io/github/downloads/alireza0/x-ui/total.svg)
 [![License](https://img.shields.io/badge/license-GPL%20V3-blue.svg?longCache=true)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 

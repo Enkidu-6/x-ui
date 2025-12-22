@@ -3,8 +3,8 @@ package model
 import (
 	"fmt"
 
-	"github.com/alireza0/x-ui/util/json_util"
-	"github.com/alireza0/x-ui/xray"
+	"github.com/Enkidu-6/x-ui/util/json_util"
+	"github.com/Enkidu-6/x-ui/xray"
 )
 
 type Protocol string
